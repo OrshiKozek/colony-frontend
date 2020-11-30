@@ -142,11 +142,11 @@ const AddAnimal = () => {
   const checkGenes = async (name, value, motherId, fatherId) => {
       var valid = true;
 
-      var animals = await searchAnimals({colonyId, searchCriteria: {mouseId: fatherId}});
+      var animals = await searchAnimals({colonyId, searchCriteria: {animalInfo: {mouseId: fatherId}}, tags: []});
       const father = animals[0];
       const fatherGene = father[name];
 
-      var animals = await searchAnimals({colonyId, searchCriteria: {mouseId: motherId}});
+      var animals = await searchAnimals({colonyId, searchCriteria: {animalInfo: {mouseId: motherId}}, tags: []});
       const mother = animals[0];
       const motherGene = mother[name];
 
@@ -196,7 +196,7 @@ const AddAnimal = () => {
         }
         else {
           const criteria = {gender: 'M', mouseId: value};
-          const searchInfo = {colonyId, searchCriteria: criteria};
+          const searchInfo = {colonyId, searchCriteria: {animalInfo: criteria}, tags: []};
           const animals = await searchAnimals(searchInfo);
           setErrors(prevState => ({...prevState, [name]:
             animals.length !== 0
@@ -217,7 +217,7 @@ const AddAnimal = () => {
         }
         else {
           const criteria = {gender: 'F', mouseId: value};
-          const searchInfo = {colonyId, searchCriteria: criteria};
+          const searchInfo = {colonyId, searchCriteria: {animalInfo: criteria}, tags:[]};
           const animals = await searchAnimals(searchInfo);
           setErrors(prevState => ({...prevState, [name]:
             animals.length !== 0
