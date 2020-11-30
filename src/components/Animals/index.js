@@ -251,7 +251,7 @@ const Animals = () => {
   }
 
   const handleSearch = async (input) => {
-    const searchCriteria = {colonyId: colonyId, searchCriteria: {animalInfo: {mouseId: input}}};
+    const searchCriteria = {colonyId: colonyId, searchCriteria: {animalInfo: {mouseId: input}}, tags:[]};
     var searchResults = await searchAnimals(searchCriteria);
     const animal = searchResults[0];
     setCurrentAnimal(animal);
