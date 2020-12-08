@@ -234,7 +234,9 @@ const ResultsPage = (props) => {
     const request = {
       colonyId, animalId,
     };
-    await deleteAnimal(request);
+    await deleteAnimal(request).catch(function(error) {
+      console.error(error);
+    });
   };
 
   const addTagToAnimal = (newTags) => {  
@@ -276,7 +278,9 @@ const ResultsPage = (props) => {
 
   const handleAddTagButton = async () => {
     const tagData = { tagName: newTagName };
-    await createTag(tagData);
+    await createTag(tagData).catch(function(error) {
+      console.error(error);
+    });
 
     addNewToList(newTagName);
 
@@ -285,7 +289,9 @@ const ResultsPage = (props) => {
 
   const handleSearch = async (input) => {
     const searchCriteria = {colonyId: colonyId, searchCriteria: {mouseId: input}};
-    var searchResults = await searchAnimals(searchCriteria); 
+    var searchResults = await searchAnimals(searchCriteria).catch(function(error) {
+      console.error(error);
+    }); 
     const animal = searchResults[0];
     setCurrentAnimal(animal);
     setRedirectTodetails(true);
