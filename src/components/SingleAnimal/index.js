@@ -266,8 +266,6 @@ const SingleAnimal = (props) => {
 
   const animalImages = currentAnimal.imageLinks.filter((item, index) => currentAnimal.imageLinks.indexOf(item) === index);
 
-  // const BasicRows = () => <Gallery photos={currentAnimal.imageLinks} />;
-
   animalNotes.sort((a, b) => {
     return b.timestamp - a.timestamp;
   });
@@ -397,8 +395,10 @@ const SingleAnimal = (props) => {
     const request = {
       colonyId, animalId, imageObject
     };
-    await deleteImageLink(request);
-    };
+    await deleteImageLink(request).catch(function(error) {
+      console.error(error);
+    });
+  };
 
   const getErrors = () => {
     var errorString = "";
@@ -423,11 +423,15 @@ const SingleAnimal = (props) => {
   const checkGenes = async (name, value, motherId, fatherId) => {
       var valid = true;
 
-      var animals = await searchAnimals({colonyId, searchCriteria: {mouseId: fatherId}});
+      var animals = await searchAnimals({colonyId, searchCriteria: {mouseId: fatherId}}).catch(function(error) {
+        console.error(error);
+      });
       const father = animals[0];
       const fatherGene = father[name];
 
-      var animals = await searchAnimals({colonyId, searchCriteria: {mouseId: motherId}});
+      var animals = await searchAnimals({colonyId, searchCriteria: {mouseId: motherId}}).catch(function(error) {
+        console.error(error);
+      });
       const mother = animals[0];
       const motherGene = mother[name];
 
@@ -478,7 +482,9 @@ const SingleAnimal = (props) => {
         else {
           const criteria = {gender: 'M', mouseId: value};
           const searchInfo = {colonyId, searchCriteria: criteria};
-          const animals = await searchAnimals(searchInfo);
+          const animals = await searchAnimals(searchInfo).catch(function(error) {
+            console.error(error);
+          });
           setErrors(prevState => ({...prevState, [name]:
             animals.length !== 0
             ? ''
@@ -499,8 +505,9 @@ const SingleAnimal = (props) => {
         else {
           const criteria = {gender: 'F', mouseId: value};
           const searchInfo = {colonyId, searchCriteria: criteria};
-          const animals = await searchAnimals(searchInfo);
-          console.log(animals);
+          const animals = await searchAnimals(searchInfo).catch(function(error) {
+            console.error(error);
+          });
           setErrors(prevState => ({...prevState, [name]:
             animals.length !== 0
             ? ''
