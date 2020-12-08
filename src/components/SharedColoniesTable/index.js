@@ -107,7 +107,9 @@ const SharedColoniesTable = () => {
 
   const deleteEntry = async () => {
     if (permission) {
-      await deleteColony(deletedColony, true);
+      await deleteColony(deletedColony, true).catch(function(error) {
+        console.error(error);
+      });
     } else {
       console.log('User does not have write access');
     }
@@ -124,7 +126,9 @@ const SharedColoniesTable = () => {
       colonyId, rowsPerPage, page,
     };
 
-    await getAnimals(request, accessRights, colonyName, colonySize, geneNames);
+    await getAnimals(request, accessRights, colonyName, colonySize, geneNames).catch(function(error) {
+        console.error(error);
+      });
     setRedirectToAnimals(true);
   };
 
@@ -145,7 +149,9 @@ const SharedColoniesTable = () => {
                 style={{ cursor: 'pointer' }}
                 component="th"
                 scope="row"
-                onClick={async () => await handleCellClick(colony.colonyId, colony.colonyName, colony.size, colony.geneNames, colony.accessRights)}
+                onClick={async () => await handleCellClick(colony.colonyId, colony.colonyName, colony.size, colony.geneNames, colony.accessRights).catch(function(error) {
+                  console.error(error);
+                })}
               >
                 <div style={{ fontWeight: 'bold', fontSize: 18 }}>{colony.colonyName}</div>
                 <p style={{ color: '#333333' }}>Size: {colony.size}</p>
@@ -160,8 +166,10 @@ const SharedColoniesTable = () => {
                       variant="contained"
                       color="secondary"
                       onClick={async () => {
-                    await deleteEntry();
-                  }}
+                        await deleteEntry().catch(function(error) {
+                          console.error(error);
+                        });
+                      }}
                     >
                     Delete
                     </Button>
