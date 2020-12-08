@@ -103,7 +103,7 @@ const Colonies = () => {
       const load = reader.result;
       const data = { payload: load, name: fileName, geneNames };
       if (!isBlank(fileName.trim())) {
-        const resData = await addColony(data);
+        const resData = await addColony(data).catch();
         console.log(resData);
         if (resData.fileErrorsFound) {
           alert('Errors found in file! Please click on colony to correct errors.');
@@ -125,7 +125,7 @@ const Colonies = () => {
 
   const createNew = async () => {
     const data = { payload: "", name: fileName, geneNames };
-    await addColony(data);
+    await addColony(data).catch();
     closeAddDialog();
   };
 
