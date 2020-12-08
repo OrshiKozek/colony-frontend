@@ -164,7 +164,9 @@ const Animals = () => {
     const request = {
       colonyId, rowsPerPage, page: newPage,
     };
-    await getAnimals(request, accessRights, colonyName, colonySize, geneNames);
+    await getAnimals(request, accessRights, colonyName, colonySize, geneNames).catch(function(error) {
+      console.error(error);
+    });
     setPage(newPage);
   };
 
@@ -216,7 +218,9 @@ const Animals = () => {
     const request = {
       colonyId, animalId,
     };
-    await deleteAnimal(request);
+    await deleteAnimal(request).catch(function(error) {
+      console.error(error);
+    });
   };
 
   const displayNotes = (noteObj) => {
@@ -243,7 +247,9 @@ const Animals = () => {
     console.log(animals);
 
     const tagData = { tagName: newTagName };
-    await createTag(tagData);
+    await createTag(tagData).catch(function(error) {
+      console.error(error);
+    });
 
     addNewToList(newTagName);
 
@@ -252,7 +258,9 @@ const Animals = () => {
 
   const handleSearch = async (input) => {
     const searchCriteria = {colonyId: colonyId, searchCriteria: {animalInfo: {mouseId: input}}, tags:[]};
-    var searchResults = await searchAnimals(searchCriteria);
+    var searchResults = await searchAnimals(searchCriteria).catch(function(error) {
+      console.error(error);
+    });
     const animal = searchResults[0];
     setCurrentAnimal(animal);
     setRedirectTodetails(true);
