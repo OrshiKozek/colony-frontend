@@ -160,36 +160,14 @@ const AdvancedSearch = () => {
   const searchWithCriteria = async(event) => {
     const request = { colonyId: colonyId, searchCriteria: {animalInfo}, tags: selectedTags};
     console.log(request.tags);
-    var results = await searchAnimals(request);
+    var results = await searchAnimals(request).catch(function(error) {
+      console.error(error);
+    });
     setSearchResults(results);
     setRedirectToResultsPage(true);
   };
 
   const updateInput = ({ target: { name, value } }) => {
-    // eslint-disable-next-line
-    switch(name) {
-      /*
-      case 'email':
-      errors.email =
-        validEmailRegex.test(value)
-          ? ''
-          : 'Email is not valid!';
-      break;
-      */
-
-      case 'mouseId':
-        setErrors(prevState => ({...prevState, [name]:
-          numRegex.test(value)
-          ? ''
-          : 'Mouse ID should contain only numbers.'}));
-        break;
-      case 'gender':
-        setErrors(prevState => ({...prevState, [name]:
-          value === 'M' || value === 'F'
-          ? ''
-          : 'Please enter \'M\' or \'F\' for gender.'}));
-        break;
-    }
 
     setAnimalInfo(prevState => ({ ...prevState, [name]: value }));
     return 0;
