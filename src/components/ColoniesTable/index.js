@@ -141,7 +141,9 @@ const ColoniesTable = () => {
 
   const share = async () => {
     const data = { email: sharedUser, colonyId: sharedColony, accessRights: accessRightsShare };
-    await shareColony(data);
+    await shareColony(data).catch(function(error) {
+      console.error(error);
+    });
     closeShareDialog();
   };
 
@@ -159,7 +161,9 @@ const ColoniesTable = () => {
       colonyId, rowsPerPage, page,
     };
     console.log(colonyId);
-    await getAnimals(request, true, colonyName, colonySize, geneNames);
+    await getAnimals(request, true, colonyName, colonySize, geneNames).catch(function(error) {
+      console.error(error);
+    });
     setRedirectToAnimals(true);
   };
 
@@ -185,7 +189,9 @@ const ColoniesTable = () => {
                 style={{ cursor: 'pointer' }}
                 component="th"
                 scope="row"
-                onClick={async () => await handleCellClick(colony.colonyId, colony.colonyName, colony.size, colony.geneNames, rowsPerPage, page)}
+                onClick={async () => await handleCellClick(colony.colonyId, colony.colonyName, colony.size, colony.geneNames, rowsPerPage, page).catch(function(error) {
+                  console.error(error);
+                })}
               >
                 <div style={{ fontWeight: 'bold', fontSize: 18 }}>{colony.colonyName}</div>
                 <p style={{ color: '#333333' }}>Size: {colony.size}</p>
@@ -207,7 +213,10 @@ const ColoniesTable = () => {
                       <FormControlLabel value="read_o" control={<Radio />} label="Read Only" />
                       <FormControlLabel value="write" control={<Radio />} label="Read and Write" />
                     </RadioGroup>
-                    <Button onClick={async () => await share()} variant="outlined" color="primary" className={radioStyle.button}>
+                    <Button onClick={async () => await share().catch(function(error) {
+                      console.error(error);
+                    })
+                    } variant="outlined" color="primary" className={radioStyle.button}>
                       Share
                   </Button>
 
