@@ -229,7 +229,7 @@ const ColoniesTable = () => {
                   <DialogTitle>Confirm Delete</DialogTitle>
                   <DialogContent>
                     <DialogContentText>
-                      Are you sure you want to delete {deleteColony}?
+                      Are you sure you want to delete this colony?
                     </DialogContentText>
                   </DialogContent>
                   {console.log("opened delete dialog")}
